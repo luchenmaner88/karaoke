@@ -114,11 +114,35 @@ class UI{
       deliveryPrice: document.querySelector(".footer-car-tip"),
       footerPay: document.querySelector(".footer-pay"),
       footerPaySpan:document.querySelector(".footer-pay span"),
-      totalPrice:document.querySelector(".footer-car-total")
+      totalPrice:document.querySelector(".footer-car-total"),
+      footerCar:document.querySelector(".footer-car"),
+      footerCarBadge: document.querySelector(".footer-car-badge")
 
     }
+
+    var carRect = this.doms.footerCar.getBoundingClientRect();
+    console.log(carRect);
+    var jumpTarget = {
+      x: carRect.left + carRect.width / 2,
+      y: carRect.top + carRect.height / 5,
+    }
+
+    this.jumpTarget = jumpTarget;
+
     this.createHTML();
     this.updateFooter();
+    this.listenEvents();
+
+
+  }
+
+  //listen to all types of events
+  listenEvents(){
+    this.doms.footerCar.addEventListener("animationend",function(){
+      console.log("over");
+      //remove animate class, so next time, the animation will work again
+      this.classList.remove("animate");
+    })
   }
 
   //based on goods number to create div
@@ -126,7 +150,7 @@ class UI{
      
     var html = '';
     
-    this.uiData.uiGoods.forEach( g => {
+    this.uiData.uiGoods.forEach( (g,index) => {
 
     html += `<div class="goods-item">
           <img src="${g.data.pic}" alt="" class="goods-pic" />
@@ -145,9 +169,9 @@ class UI{
                 <span>${g.data.price}</span>
               </p>
               <div class="goods-btns">
-                <i class="iconfont i-jianhao"></i>
+                <i data-index="${index}" class="iconfont i-jianhao"></i>
                 <span>${g.choose}</span>
-                <i class="iconfont i-jiajianzujianjiahao"></i>
+                <i data-index="${index}" class="iconfont i-jiajianzujianjiahao"></i>
               </div>
             </div>
           </div>
@@ -164,12 +188,14 @@ class UI{
     this.uiData.increase(index);
     this.updateGoodesItem(index);
     this.updateFooter();
+    this.jump(index);
   }
 
   decrease(index){
     this.uiData.decrease(index);
     this.updateGoodesItem(index);
     this.updateFooter();
+    this.jump(index);
   }
 
   //update single item dom for + or - 
@@ -203,8 +229,78 @@ class UI{
     //update total price
     this.doms.totalPrice.textContent = total.toFixed(2);
 
+    if(this.uiData.hasGoodsInCar()){
+      this.doms.footerCar.classList.add('active');
+    }else{
+      this.doms.footerCar.classList.remove('active');
+    }
+
+    //update badge value
+    this.doms.footerCarBadge.textContent = this.uiData.getTotalSelectedItemNumbers();
+
+
   }
+
+
+      //add animation for car 
+    carAnimation(){
+        this.doms.footerCar.classList.add("animate");
+    }
+
+    //animation for adding item to car
+    jump(index){
+       var btnAdd = this.doms.goodsContainer.children[index].querySelector(".i-jiajianzujianjiahao");
+       var rect = btnAdd.getBoundingClientRect();
+       var start = {
+        x: rect.left,
+        y: rect.top,
+       };
+       //start to jump
+       var div = document.createElement('div');
+       div.className = "add-to-car";
+       var i = document.createElement('i');
+       i.className = "iconfont i-jiajianzujianjiahao";
+
+       div.style.transform = `translateX(${start.x}px)`;
+       i.style.transform = `translateY(${start.y}px)`;
+       div.appendChild(i);
+       document.body.appendChild(div);
+
+       //force re-rerendering . force reflow
+       //if we don't force reflow here, the page will load with jumpTarget as final display point
+       div.clientWidth;
+
+
+       //reach to the target position
+
+       div.style.transform=`translateX(${this.jumpTarget.x}px)`;
+       i.style.transform=`translateY(${this.jumpTarget.y}px)`;
+
+       var that = this;
+
+       div.addEventListener("transitionend",function(){
+        console.log('transition end');
+        div.remove();
+        that.carAnimation();
+       },{
+        once:true,
+       });
+    }
+
 
 }
 
 var ui = new UI()
+
+ui.doms.goodsContainer.addEventListener("click", function (e) {
+  if (e.target.classList.contains("i-jiajianzujianjiahao")) {
+    //self define an attribute to show the "index" of the parent element
+    //using html5 data-* method
+    var index = +e.target.dataset.index;
+    ui.increase(index);
+  } else if (e.target.classList.contains("i-jianhao")) {
+    var index = +e.target.dataset.index;
+    ui.decrease(index);
+  }
+});
+
