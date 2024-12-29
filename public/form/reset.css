@@ -1,0 +1,30 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a{
+    text-decoration: none;
+    color:inherit;
+}
+
+input,textarea,button,select{
+    border:none
+}
+
+input:focus,
+textarea:focus,
+button:focus,
+select:focus{
+    outline: none;
+    outline-offset: 0;
+}
+
+ul{
+   list-style: none;
+}

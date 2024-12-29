@@ -59,6 +59,101 @@ https://www.freeformatter.com/html-entities.html
 
 boolean atribute: 
 controls,  autoplay,  muted 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          autoplay, muted, loop
+
+#### <ol reverse>
+using css list-type-style to display 
+#### <ul>
+#### <dl><dt><dd>  Definition
+```
+<dl>
+<dt></dt>
+<dd></dd>
+</dl>
+```
+#### container element
+<header><footer><article><section><aside>
+
+
+#### selector, attribute selector , priority
+
+space between: descendent element
+
+the narrower scope selector , it has a higher priority  (xxxx)
+style link (1xxx)
+id selector(11xx)
+class, pseudo class selector(111x)
+element, pseudo element (1111)       
+
+in the css. write the <a> preudo-class with the following order:
+link>visited>hover>active     
+
+#### row element , effect row sytle, won't effect height and width, need to convert to block element     
+
+#### two element adjacent, if the edge is directly aligned to each other, then the second margion won't work. we can add a border for first element to separate the aligned situation or in the first element ,we can use padding 
+```
+.parent{
+    width: 300px;
+    height: 300px;
+    background-color: blue;
+   ++ padding-top: 10px;
+   OR
+   ++ border:1px solid;
+}
+
+.child{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+
+<div class="parent">
+  <div class="child"></child>
+</div>
+```
+#### child floating element , height collaspe
+consider to use clearfix css in parent element
+```
+clearfix::after{
+  content:"";
+  display:block;
+  clear:both;
+}
+```   
+
+#### layout an element to center of parents, pop-out window
+```
+<div class="modal">
+   <div class="container"></>
+</div>
+
+.modal{
+  position:fixed;
+  weight:100%;
+  height:100%;
+}
+
+.container{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  button:0;
+  margin:auto;
+  box-sizing:border-box;
+}
+```    
+
+#### css selector combination
+
+space  all the child elements of parent
+eg: div p ==> select all the p under div
+
+nospace select the combination selectors
+
++select the immediate sibling
+
+~select sblings not direct precedent
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   autoplay, muted, loop
 
 
