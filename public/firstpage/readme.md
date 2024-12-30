@@ -154,6 +154,39 @@ nospace select the combination selectors
 
 ~select sblings not direct precedent
 
+
+#### line-height
+if there is no unit, then inherit first from parent and then calculate
+if there is unit, then calculate first  then inherit
+
+```
+body{
+font-size: 12px
+}
+.container{
+line-height:2em
+}
+p{
+font-size:40 px
+==> line-height: 24px
+}
+
+.container{
+line-height:2
+}
+p{
+font-size:40 px
+==> line-height: 80px
+}
+
+
+
+<body>
+<div class="container">
+<p><p>
+</div>
+</body>
+```
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    autoplay, muted, loop
 
 
