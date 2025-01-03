@@ -1,9 +1,9 @@
 ## css
 
-##### Text in front of the image/icone
+#### Text in front of the image/icone
 using vertical-algin to adjust
 
-##### remove the white space below the image
+#### remove the white space below the image
 set the parent element font-size to 0
 ```
 <div>
