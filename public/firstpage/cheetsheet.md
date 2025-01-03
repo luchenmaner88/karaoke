@@ -1,9 +1,9 @@
-## css
+# css
 
-#### Text in front of the image/icone
+### Adjust text in front of the image/icone
 using vertical-algin to adjust
 
-#### remove the white space below the image
+### Remove the white space below the image
 set the parent element font-size to 0
 ```
 <div>
@@ -14,6 +14,6 @@ div {
 font-size: 0
 }
 ```
-#### inline element can't set height and width
+### Inline element can't set height and width
 change the display to block or inline block
 
